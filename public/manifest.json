@@ -45,6 +45,6 @@
   ],
     "theme_color" : "#ffffff",
     "background_color": "#01579b",
-    "start_url" : "",
+    "start_url" : "https://ramu-makkena-budget-tracker.herokuapp.com/",
     "display" : "standalone"
   }

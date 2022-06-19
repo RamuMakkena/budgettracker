@@ -1,14 +1,12 @@
 # Budget Tracker Starter Code
+A simple PWA based application for tracking the budget. It adds a provision to add and substract funds during offline mode. We can install this as a simple pwa application as well.
 
-# User Story
-AS AN avid traveler
-I WANT to be able to track my withdrawals and deposits with or without a data/internet connection
-SO THAT my account balance is accurate when I am traveling 
+# Link to Application
+[APP](https://ramu-makkena-budget-tracker.herokuapp.com/)
 
+# Author
+[Ramu Makkena](https://github.com/RamuMakkena)
 
-# Acceptance Criteria
-GIVEN a budget tracker without an internet connection
-WHEN the user inputs an expense or deposit
-THEN they will receive a notification that they have added an expense or deposit
-WHEN the user reestablishes an internet connection
-THEN the deposits or expenses added while they were offline are added to their transaction history and their totals are updated
+# Technologies Used
+MongoDB, Node, IndexedDb, Deployed on Heroku, Mongoose, expressjs
+
