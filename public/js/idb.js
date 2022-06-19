@@ -17,7 +17,7 @@ request.onsuccess = function(event) {
     // check if app is online, if yes run uploadTranactions() function to send all local db data to api
     if (navigator.onLine) {
       // we haven't created this yet, but we will soon, so let's comment it out for now
-      // uploadTranactions();
+      uploadTranactions();
     }
   };
   
@@ -38,3 +38,41 @@ function saveRecord(record) {
     transactionObjectStore.add(record);
   }
 
+function uploadTransactions(){
+    console.log("uploading transactions");
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
+
+    const transactionStore = transaction.objectStore('new_transaction');
+
+    const getAll = transactionStore.getAll();
+    
+    getAll.onsuccess = function(){
+        console.log("number of transcations : "+getAll.result.length);
+        if(getAll.result.length > 0){
+                fetch("/api/transaction", {
+                    method: "POST",
+                    body: JSON.stringify(getAll.result),
+                    headers: {
+                      Accept: "application/json, text/plain, */*",
+                      "Content-Type": "application/json"
+                    }
+                  })
+                .then(response => response.json())
+                .then(serverResponse => {
+                    if(serverResponse.message){
+                        throw new Error(serverResponse);
+                    }
+                    const transaction = db.transaction(['new_transaction'], 'readwrite');
+                    const transactionStore = transaction.objectStore('new_transaction');
+                    transactionStore.clear();
+                })
+                .catch(err => {
+                    console.log(err);
+                })     
+        }
+    }
+}   
+
+
+
+window.addEventListener('online', uploadTransactions);
